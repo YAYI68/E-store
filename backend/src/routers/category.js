@@ -50,6 +50,10 @@ router.put('/:id', async(req, res) => {
       },
       {new: true}
       )
+      if(!category){
+        return res.status(404).json({message:'category cannot be updated'})
+    }
+    res.status(201).json({message:'category updated'})
 })
 
 router.delete('/:id', async(req, res) => {

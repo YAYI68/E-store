@@ -9,6 +9,12 @@ const { Schema } = mongoose;
     countInStock:Number,
  })
 
+ orderSchema.virtual('id').get(function(){
+   return this._id.toHexString()
+})
+
+orderSchema.set('toJSON',{virtuals:true})
+
  const Order = mongoose.model('order', orderSchema)
 
  module.exports = Order
