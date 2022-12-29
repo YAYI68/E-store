@@ -4,9 +4,18 @@ const { Schema } = mongoose;
 
 
  const categorySchema = new Schema({
-    name:String,
-    image:String,
-    countInStock:Number,
+    name:{
+        type:String,
+        required:true,
+    },
+    icon:{
+        type:String,
+    },
+    color:{
+        type:String,
+    }
+    
+
  })
 
  const Category = mongoose.model('category', categorySchema)

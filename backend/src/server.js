@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
 const mongoose = require('mongoose');
+const  cors = require('cors')
 const productRouter = require('./routers/product')
 const categoryRouter = require('./routers/category')
 const userRouter = require('./routers/user')
@@ -13,7 +14,8 @@ const app = express()
 
 const api = process.env.API_URL 
 
-
+app.use(cors())
+app.options('*',cors())
 app.use(express.json())
 app.use(morgan('tiny'))
 
