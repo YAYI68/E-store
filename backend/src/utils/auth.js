@@ -20,13 +20,13 @@ const createJwt = (user)=>{
         return token;
 }
 
-const authJwt = ()=>{
-      
+const authJwt = ()=>{ 
     return expressjwt({
         secret:process.env.JWT_SECRET,
         algorithms:["HS256"]
     }).unless({
         path:[
+            {url:/\public\/images(.*)/, method:['GET','OPTIONS']},
             {url:/\/api\/v1\/products(.*)/, method:['GET','OPTIONS']},
             {url:/\/api\/v1\/categories(.*)/, method:['GET','OPTIONS']},
             '/api/v1/users/login',

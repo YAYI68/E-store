@@ -19,6 +19,7 @@ app.options('*',cors())
 app.use(express.json())
 app.use(morgan('tiny'))
 app.use(authJwt)
+app.use('/public/images',express.static(__dirname + 'public/images'))
 app.use(errorHandler)
 
 mongoose.set("strictQuery", false);

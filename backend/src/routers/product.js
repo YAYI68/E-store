@@ -202,12 +202,28 @@ router.get('/featured/:count',async(req,res)=>{
 
 })
 
-router.put('/images/:id',upload.single('image'), async(req, res) => {
+router.put('/images/:id',upload.array('image',10), async(req, res) => {
     const isValidId = mongoose.isValidObjectId(req.params.id)
     if(isValidId){
         return res.status(400).json({message:'Invalid product id'})
     }
+    const files = req.files
+    let imagePaths =[];
+    const basePath = `${req.protocol}://${req.get('host')}/public/images/`
+    if(files){
+        files.map(file=>{
+            const fileName = file.filename
+            imagePaths.push(`${basePath}${fileName}`)
+        }) 
+    }
+    const updatedProductImages = await Product.findByIdAndUpdate(req.params.id,{
+        images:imagePaths
+    },{new:true})
 
+    if(!updatedProductImages){
+        return res.status(404).json({message:'The product Images cannot be updated'})
+    }
+    res.status(200).json({product:updatedProductImages})
 })
 
 
