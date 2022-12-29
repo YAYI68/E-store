@@ -6,8 +6,8 @@ const  cors = require('cors')
 const productRouter = require('./routers/product')
 const categoryRouter = require('./routers/category')
 const userRouter = require('./routers/user')
-const orderRouter = require('./routers/order')
-
+const orderRouter = require('./routers/order');
+const { authJwt } = require('./utils/auth');
 
 dotenv.config()
 const app = express()
@@ -18,6 +18,8 @@ app.use(cors())
 app.options('*',cors())
 app.use(express.json())
 app.use(morgan('tiny'))
+app.use(authJwt)
+app.use(errorHandler)
 
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.DATABASE_URL,   {
