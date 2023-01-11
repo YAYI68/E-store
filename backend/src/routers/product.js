@@ -1,5 +1,4 @@
-const { response } = require('express');
-const express = require('express');
+const { Router } = require("express");
 const multer  = require('multer')
 const mongoose = require('mongoose');
 const Category = require('../models/category');
@@ -9,7 +8,6 @@ const Product = require('../models/product');
 
 
 
-const {Router} = express;
 const router = Router()
 
 const FILE_TYPE_MAP = {

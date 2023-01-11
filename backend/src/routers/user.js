@@ -1,25 +1,21 @@
-const express = require('express');
-const Product = require('../models/product');
+const { Router } = require("express");
 const User = require('../models/user');
-const { hashPassword, createJwt } = require('../utils/auth');
+const { hashPassword, createJwt, verifyPassword } = require('../utils/auth');
 
 
 
-
-const {Router} = express;
 const router = Router()
 
 
 router.post(`/register`,async(req, res)=>{
-      
     try{
         const hashedPassword = await hashPassword(req.body.password)
         const user = new User({
             name:req.body.name,
             email:req.body.email,
-            color:req.body.color,
             password:hashedPassword,
             phone:req.body.phone,
+            street:req.body.street,
             isAdmin:req.body.isAdmin,
             appartment:req.body.appartment,
             zip:req.body.zip,
@@ -61,6 +57,7 @@ router.get(`/:id`, async(req, res) => {
 })
 
 router.post('/login',async(req,res)=>{
+    
     try {
         const user = await User.findOne({email: req.body.email})        
     if(!user){
@@ -73,8 +70,7 @@ router.post('/login',async(req,res)=>{
     if(user && isValid){
        const token = createJwt(user)
        return res.status(200).json({token,email:user.email})
-    }
-     
+    } 
     }
     catch(err){
        return res.status(500).json({error: err.message}) 

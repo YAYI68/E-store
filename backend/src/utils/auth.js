@@ -8,7 +8,7 @@ const hashPassword = (password)=>{
 }
 
 const verifyPassword = async(password,hashPassword)=>{
-    const isValid = await bcrypt.verify(password,hashPassword)
+    const isValid = await bcrypt.compare(password,hashPassword)
     return isValid
 }
 

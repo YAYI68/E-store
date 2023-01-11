@@ -20,6 +20,5 @@ const { Schema } = mongoose;
 
 OrderItemSchema.set('toJSON',{virtuals:true})
 
- const OrderItem = mongoose.model('orderItem', OrderItemSchema)
 
- module.exports = OrderItem
+ module.exports = mongoose.model('OrderItem', OrderItemSchema)

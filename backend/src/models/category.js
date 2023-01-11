@@ -24,6 +24,6 @@ const { Schema } = mongoose;
  
  categorySchema.set('toJSON',{virtuals:true})
 
- const Category = mongoose.model('category', categorySchema)
 
- module.exports = Category
+
+ module.exports = mongoose.models.Category || mongoose.model('Category', categorySchema)

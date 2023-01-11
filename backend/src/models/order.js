@@ -62,6 +62,5 @@ const { Schema } = mongoose;
 
 orderSchema.set('toJSON',{virtuals:true})
 
- const Order = mongoose.model('order', orderSchema)
 
- module.exports = Order
+ module.exports = mongoose.model('Order', orderSchema)

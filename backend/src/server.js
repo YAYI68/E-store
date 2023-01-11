@@ -8,6 +8,7 @@ const categoryRouter = require('./routers/category')
 const userRouter = require('./routers/user')
 const orderRouter = require('./routers/order');
 const { authJwt } = require('./utils/auth');
+const errorHandler = require('./utils/error-handler');
 
 dotenv.config()
 const app = express()
@@ -18,9 +19,10 @@ app.use(cors())
 app.options('*',cors())
 app.use(express.json())
 app.use(morgan('tiny'))
-app.use(authJwt)
+app.use(authJwt())
 app.use('/public/images',express.static(__dirname + 'public/images'))
-app.use(errorHandler)
+
+
 
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.DATABASE_URL,   {
@@ -35,12 +37,17 @@ mongoose.connect(process.env.DATABASE_URL,   {
     console.log('error connecting to database')
 })
 
+app.get('/',(req, res)=>{
+    res.send('Hello World')
+});
+
 
 app.use(`${api}/products`,productRouter)
 app.use(`${api}/users`,userRouter)
 app.use(`${api}/categories`,categoryRouter)
 app.use(`${api}/orders`,orderRouter)
 
+app.use(errorHandler)
 
 app.listen(3000,()=>{
     console.log('listening on port 3000')

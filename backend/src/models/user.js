@@ -52,6 +52,4 @@ const { Schema } = mongoose;
 
 userSchema.set('toJSON',{virtuals:true}) 
 
- const User = mongoose.model('user', userSchema)
-
- module.exports = User
+ module.exports = mongoose.model('User', userSchema)
